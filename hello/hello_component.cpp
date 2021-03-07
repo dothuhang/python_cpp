@@ -10,6 +10,23 @@ char const* getVersion() {
 char const* greet() {
   return "hello, world";
 }
+class Company {
+  private:
+    float capital;
+    string address;
+  public:
+    Company() {}
+    Company(const string &address, const float &capital) : address(address), capital(capital) {}
+    const string &getAddress() const {
+      return address;
+    }
+    const float &getCapital() const {
+      return capital;
+    }
+    void setCapital(const float &capital_) { capital = capital_; }
+
+    void setAddress(const string &address_) { address = address_; }
+};
 
 class Company {
   private:
@@ -37,7 +54,7 @@ PYBIND11_MODULE(hello_component,greetings)
   
   greetings.def("greet", &greet, "a function saying hello");
   greetings.def("getVersion", &getVersion, "a function returning the version");
-  
+
   py::class_<Company>(greetings, "Company",py::dynamic_attr())
         .def(py::init<const string &, const float &>())
         .def("setCapital", &Company::setCapital)
