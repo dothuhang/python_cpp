@@ -25,3 +25,22 @@ python3
 '1.0'
 >>> 
 ```
+
+Pour utiliser v2.
+```
+>>> import hello_component
+>>> hello_component.greet()
+'hello, world'
+>>> c=Company("75000", 100)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'Company' is not defined
+>>> c=hello_component.Company("75000", 100)
+>>> c.getAddress()
+'75000'
+>>> c.getCapital()
+100.0
+>>> c.setAddress("94000")
+>>> c.getAddress()
+'94000'
+```
