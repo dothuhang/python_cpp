@@ -8,7 +8,7 @@ LIBSO_OBJS = ${COMPOSANT}.o
 
 include ../gcc.mk
 include ../pybind11.mk
-include ../micro-ecc.mk
+
 
 
 all: $(LIBSO)
