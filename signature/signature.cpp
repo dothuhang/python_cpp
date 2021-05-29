@@ -6,6 +6,12 @@ char version[]="1.0";
 
 const int publicKeySize = uECC_curve_public_key_size(uECC_secp256k1());
 
+char const *getVersion() 
+{
+    return version;
+}
+
+
 
 class Signature
 {

@@ -3,9 +3,18 @@
 	url = https://github.com/pybind/pybind11
 	branch = stable
 
+
 [submodule "cryptokey/micro-ecc"]
 	path = cryptokey/micro-ecc
 	url = https://github.com/dothuhang/micro-ecc
 	branch = master
 
+[submodule "signature/micro-ecc"]
+	path = signature/micro-ecc
+	url = https://github.com/dothuhang/micro-ecc
+	branch = master
 
+[submodule "cryptokey"]
+	path = cryptokey
+	url = https://github.com/dothuhang/python_cpp/tree/main/cryptokey
+	branch = stable
