@@ -1,14 +1,13 @@
 CPPFLAGS += -I /usr/include/python3.7m
 LIBS=-lpython3.7m 
 
-COMPOSANT = cle
+COMPOSANT = cle_component
 
 LIBSO = ${COMPOSANT}.so
-LIBSO_OBJS = ${COMPOSANT}.o
+LIBSO_OBJS = ${COMPOSANT}.o micro-ecc/uECC.o
 
 include ../gcc.mk
 include ../pybind11.mk
-
 
 
 all: $(LIBSO)
@@ -18,4 +17,3 @@ clean:
 
 ${DESTINATION_LIBSO}: ${LIBSO}
 	cp $< $@
-
