@@ -1,13 +1,6 @@
-#include "cle.h"
-#include "micro-eec/uECC.h"
 #include <pybind11/pybind11.h>
-using namespace std;
-
+#include "micro-ecc/uECC.h"
 char version[]="1.0";
-
-char const* getVersion() {
-	return version;
-}
 
 char const* getVersion() {
 	return version;
@@ -58,28 +51,47 @@ char *binToHexString(char *out,const unsigned char *bin, size_t len)
 
 
 
-Cle::Cle() {
-	
-	initialize("4b8e29b9b0dddd58a709edba7d6df6c07ebdaf5653e325114bc5318c238f87f0");
-	
-}
 
-void Cle::initialize(std::string &nb) {
-	privateKey = nb;
-	
-	uint8_t binaryPrivate[32];
-	hexStringToBin(binaryPrivate, privateKey.c_str());
-	
-	const int publicKeySize = uECC_curve_public_key_size(uECC_secp256k1());
-	
-	uint8_t *varIntPublicKey = new uint8_t[publicKeySize];
-	
-	uECC_compute_public_key(binaryPrivate, varIntPublicKey, uECC_secp256k1());
-	
-	char hexPublicKey[128];
-	
-	binToHexString(hexPublicKey, varIntPublicKey, 64);
-	
-	publicKey = std::string(hexPublicKey, 128);
+
+class Cle
+{
+    public:
+        Cle(){}
+        ~Cle() {}
+
+        void initialize(std::string &nb) { 
+		PrivateKey=nb;
+		uint8_t binaryPrivate[32];
+		hexStringToBin(binaryPrivate,PrivateKey.c_str());
+		const int publicKeySize=uECC_curve_public_key_size(uECC_secp256k1());
+		uint8_t *varIntPublicKey = new uint8_t[publicKeySize];
+		uECC_compute_public_key(binaryPrivate,varIntPublicKey,uECC_secp256k1());
+		char hexPublicKey[128];
+		binToHexString(hexPublicKey,varIntPublicKey,64);
+		PublicKey=std::string(hexPublicKey,128);
+		//PublicKey=std::string( varIntPublicKey, varIntPublicKey+publicKeySize );
+		}
 		
+        const std::string &getPrivateKey() const { return PrivateKey; }
+		const std::string &getPublicKey() const { return PublicKey; }
+
+    private:
+        std::string PublicKey;
+        std::string PrivateKey;
+};
+ 
+namespace py = pybind11;
+
+
+PYBIND11_MODULE(cle_component,greetings)
+{
+  greetings.doc() = "greeting_object 1.0";
+  greetings.def("getVersion", &getVersion, "a function returning the version");
+  
+   // bindings to Cle class
+    py::class_<Cle>(greetings, "Cle", py::dynamic_attr())
+        .def(py::init())
+        .def("initialize", &Cle::initialize)
+        .def("getPrivateKey", &Cle::getPrivateKey)
+        .def("getPublicKey", &Cle::getPublicKey);
 }
