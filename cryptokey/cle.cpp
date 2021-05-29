@@ -1,14 +1,9 @@
 
-#include "micro-ecc/uECC.h"
 #include <pybind11/pybind11.h>
-
+#include "micro-ecc/uECC.h"
 
 char version[]="1.0";
 
-
-char const* getVersion() {
-	return version;
-}
 
 uint8_t hexchr2bin(const char hex)
 {
@@ -61,6 +56,7 @@ class Cle
 
     public:
 
+
 	Cle() {}
 
 	~Cle() {}
@@ -105,5 +101,6 @@ PYBIND11_MODULE(cle,greetings)
 	    .def("getPublicKey", &Cle::getPublicKey);
 
 }
+
 
 
