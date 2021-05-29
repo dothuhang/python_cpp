@@ -23,8 +23,8 @@ uint8_t hexchr2bin(const char hex)
 
 
 
-void hexStringToBin(uint8_t *out,const char * hexPrivate) {
-    for (int i=0; i<32; i++){
+void hexStringToBin(uint8_t *out,const char * hexPrivate, int size) {
+    for (int i=0; i<size; i++){
 	out[i] = hexchr2bin(hexPrivate[2*i])<<4 | hexchr2bin(hexPrivate[2*i+1]);
     }
 }
@@ -62,11 +62,11 @@ class Cle
 	~Cle() {}
 
 	void initialize(std::string &nb)
-        {
+    {
 	    privateKey = nb;
 	
 	    uint8_t binaryPrivate[32];
-	    hexStringToBin(binaryPrivate, privateKey.c_str());
+	    hexStringToBin(binaryPrivate, privateKey.c_str(), 32);
 	
 	    const int publicKeySize = uECC_curve_public_key_size(uECC_secp256k1());
 	
