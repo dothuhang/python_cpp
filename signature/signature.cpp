@@ -1,6 +1,6 @@
 #include <pybind11/pybind11.h>
 #include "micro-ecc/uECC.h"
-#include "cryptokey/cle.cpp"
+#include "./cryptokey/cle.cpp"
 
 char version[]="1.0";
 
