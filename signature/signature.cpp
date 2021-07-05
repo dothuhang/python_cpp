@@ -54,7 +54,7 @@ class Signature
 		
 		hexStringToBin(public_key, publicKey.c_str(), 64);
 		
-		if (uECC_valid_public_key(\public_key, uECC_secp256k1()) = 1)		
+		if (uECC_valid_public_key(public_key, uECC_secp256k1()) = 1)		
 		{
 			uint8_t *signatureBin = new uint8_t[publicKeySize];
 		
